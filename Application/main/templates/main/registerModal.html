@@ -1,0 +1,54 @@
+<style>
+  .vertical-alignment-helper {
+      display:table;
+      height: 100%;
+      width: 100%;
+      pointer-events:none; /* This makes sure that we can still click outside of the modal to close it */
+  }
+  .vertical-align-center {
+      /* To center vertically */
+      display: table-cell;
+      vertical-align: middle;
+      pointer-events:none;
+  }
+  .modal-content {
+      /* Bootstrap sets the size of the modal in the modal-dialog class, we need to inherit it */
+      width:inherit;
+      height:inherit;
+      /* To center horizontally */
+      margin: 0 auto;
+      pointer-events: all;
+  }
+</style>
+
+<!-- Modal -->
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="vertical-alignment-helper">
+        <div class="modal-dialog vertical-align-center">
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <form class="form-horizontal" action="/register/", method="POST" style="margin-top:50px">
+                      {% csrf_token %}
+                      {% for field in registerForm %}
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                          <div class="col-sm-10">
+                            {{ field.errors }}
+                            {{ field }}
+                          </div>
+                        </div>
+                      {% endfor %}
+                      <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                          <button type="submit" class="btn btn-danger">Sign Up</button>
+                        </div>
+                      </div>
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
